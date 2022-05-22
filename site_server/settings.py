@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config as cgf
 import os
 import cloudinary
 import cloudinary.uploader
@@ -13,12 +14,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = cgf("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG"))
+DEBUG = bool(cgf("DEBUG"))
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split()
+ALLOWED_HOSTS = ['avaloqsassets.com', '127.0.0.1']
 
 
 # Application definition
@@ -58,8 +59,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp-pulse.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = cgf("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = cgf("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 
 SITE_ID = 1
@@ -174,9 +175,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 cloudinary.config(
-    cloud_name=os.environ.get("cloud_name"),
-    api_key=os.environ.get("api_key"),
-    api_secret=os.environ.get("api_secret"),
+    cloud_name=cgf("cloud_name"),
+    api_key=cgf("api_key"),
+    api_secret=cgf("api_secret"),
     secure=True,
 )
 
