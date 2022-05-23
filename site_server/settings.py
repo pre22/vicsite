@@ -56,12 +56,14 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 # EMAIL CONFIG
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp-pulse.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = cgf("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = cgf("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
+MAILJET_API_KEY = cgf('API-KEY')
+MAILJET_API_SECRET = cgf('API-SECRET')
+EMAIL_HOST = "in-v3.mailjet.com"
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = cgf("API-KEY")
+# EMAIL_HOST_PASSWORD = cgf("API-SECRET")
+# EMAIL_USE_TLS = True
 
 SITE_ID = 1
 
