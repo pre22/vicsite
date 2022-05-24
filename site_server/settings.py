@@ -14,10 +14,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2e#mdnlk8azrd9q@tkiu!u97eblwy_4op-uy+0u)pfzfn@-rdy"
+SECRET_KEY = os.environ("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(cgf("DEBUG"))
+DEBUG = "True"
 
 ALLOWED_HOSTS = ['avaloqsassets.com', '127.0.0.1']
 
@@ -57,8 +57,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 # EMAIL CONFIG
 
 EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
-MAILJET_API_KEY = cgf('API_KEY')
-MAILJET_API_SECRET = cgf('API_SECRET')
+MAILJET_API_KEY = os.environ('API_KEY')
+MAILJET_API_SECRET = os.environ('API_SECRET')
 EMAIL_HOST = "in-v3.mailjet.com"
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = cgf("API-KEY")
@@ -118,9 +118,9 @@ WSGI_APPLICATION = "site_server.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": cgf("POSTGRES_DB"),
-        "USER": cgf("POSTGRES_USER"),
-        "PASSWORD": cgf("POSTGRES_PASSWORD"),
+        "NAME": os.environ("POSTGRES_DB"),
+        "USER": os.environ("POSTGRES_USER"),
+        "PASSWORD": os.environ("POSTGRES_PASSWORD"),
         "HOST": "localhost",
         "PORT": "",
     }
@@ -182,9 +182,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 cloudinary.config(
-    cloud_name=cgf("cloud_name"),
-    api_key=cgf("api_key"),
-    api_secret=cgf("api_secret"),
+    cloud_name=os.environ("cloud_name"),
+    api_key=os.environ("api_key"),
+    api_secret=os.environ("api_secret"),
     secure=True,
 )
 
