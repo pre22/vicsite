@@ -57,8 +57,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 # EMAIL CONFIG
 
 EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
-MAILJET_API_KEY = cgf('API-KEY')
-MAILJET_API_SECRET = cgf('API-SECRET')
+MAILJET_API_KEY = cgf('API_KEY')
+MAILJET_API_SECRET = cgf('API_SECRET')
 EMAIL_HOST = "in-v3.mailjet.com"
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = cgf("API-KEY")
