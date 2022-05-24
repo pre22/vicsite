@@ -6,10 +6,10 @@ import cloudinary.uploader
 import cloudinary.api
 import environ
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+# env = environ.os.environ.get(
+#     # set casting, default value
+#     DEBUG=(bool, False)
+# )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,10 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "True"
+DEBUG = "False"
 
 ALLOWED_HOSTS = ['avaloqsassets.com', '127.0.0.1']
 
@@ -62,8 +62,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 # EMAIL CONFIG
 
 EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
-MAILJET_API_KEY = env('API_KEY')
-MAILJET_API_SECRET = env('API_SECRET')
+MAILJET_API_KEY = os.environ.get('API_KEY')
+MAILJET_API_SECRET = os.environ.get('API_SECRET')
 EMAIL_HOST = "in-v3.mailjet.com"
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = cgf("API-KEY")
@@ -123,9 +123,9 @@ WSGI_APPLICATION = "site_server.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
         "HOST": "localhost",
         "PORT": "",
     }
@@ -187,9 +187,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 cloudinary.config(
-    cloud_name=env("cloud_name"),
-    api_key=env("api_key"),
-    api_secret=env("api_secret"),
+    cloud_name=os.environ.get("cloud_name"),
+    api_key=os.environ.get("api_key"),
+    api_secret=os.environ.get("api_secret"),
     secure=True,
 )
 
