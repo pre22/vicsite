@@ -6,7 +6,7 @@ import cloudinary.uploader
 import cloudinary.api
 import environ
 
-# env = environ.os.environ.get(
+# env = environ.cgf(
 #     # set casting, default value
 #     DEBUG=(bool, False)
 # )
@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = cgf("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = "False"
@@ -62,8 +62,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 # EMAIL CONFIG
 
 EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
-MAILJET_API_KEY = os.environ.get('API_KEY')
-MAILJET_API_SECRET = os.environ.get('API_SECRET')
+MAILJET_API_KEY = cgf('API_KEY')
+MAILJET_API_SECRET = cgf('API_SECRET')
 EMAIL_HOST = "in-v3.mailjet.com"
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = cgf("API-KEY")
@@ -123,9 +123,9 @@ WSGI_APPLICATION = "site_server.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "NAME": cgf("POSTGRES_DB"),
+        "USER": cgf("POSTGRES_USER"),
+        "PASSWORD": cgf("POSTGRES_PASSWORD"),
         "HOST": "localhost",
         "PORT": "",
     }
@@ -187,9 +187,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 cloudinary.config(
-    cloud_name=os.environ.get("cloud_name"),
-    api_key=os.environ.get("api_key"),
-    api_secret=os.environ.get("api_secret"),
+    cloud_name=cgf("cloud_name"),
+    api_key=cgf("api_key"),
+    api_secret=cgf("api_secret"),
     secure=True,
 )
 
