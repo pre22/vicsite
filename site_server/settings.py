@@ -61,13 +61,14 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 # EMAIL CONFIG
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
 MAILJET_API_KEY = cgf('API_KEY')
 MAILJET_API_SECRET = cgf('API_SECRET')
 EMAIL_HOST = "in-v3.mailjet.com"
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = cgf("API-KEY")
-# EMAIL_HOST_PASSWORD = cgf("API-SECRET")
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = cgf("EMAIL_HOST_USER")
+# EMAIL_HOST_PASSWORD = cgf("EMAIL_HOST_PASSWORD")
 # EMAIL_USE_TLS = True
 
 SITE_ID = 1
@@ -121,19 +122,19 @@ WSGI_APPLICATION = "site_server.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql_psycopg2",
-    #     "NAME": cgf("POSTGRES_DB"),
-    #     "USER": cgf("POSTGRES_USER"),
-    #     "PASSWORD": cgf("POSTGRES_PASSWORD"),
-    #     "HOST": "localhost",
-    #     "PORT": "",
-    # }
-
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": cgf("POSTGRES_DB"),
+        "USER": cgf("POSTGRES_USER"),
+        "PASSWORD": cgf("POSTGRES_PASSWORD"),
+        "HOST": "localhost",
+        "PORT": "",
     }
+
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
 }
 
 
