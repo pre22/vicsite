@@ -9,7 +9,7 @@ from django.http import request
 from accounts.models import Balance, DueDate, AmountInvested, CustomUser, Profilepic
 from transactions.models import Deposit, Package
 from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_are_sub, Top_executive, Top_executive_body, Our_offering, AboutUs, Footer, HowToInvest
-from mailjet_rest import Client
+# from mailjet_rest import Client
 from decouple import config as cgf
 
 
@@ -44,27 +44,27 @@ class Custom_PasswordResetView(PasswordResetView):
 
     API_KEY = cgf('API_KEY')
     API_SECRET = cgf('API_SECRET')
-    mailjet = Client(auth=(API_KEY, API_SECRET))
-    data = {
-    'Messages': [
-        {
-        "From": {
-            "Email": "$SENDER_EMAIL",
-            "Name": "Me"
-        },
-        "To": [
-            {
-            "Email": "$RECIPIENT_EMAIL",
-            "Name": "You"
-            }
-        ],
-        "Subject": subject_template_name,
+    # mailjet = Client(auth=(API_KEY, API_SECRET))
+    # data = {
+    # 'Messages': [
+    #     {
+    #     "From": {
+    #         "Email": "$SENDER_EMAIL",
+    #         "Name": "Me"
+    #     },
+    #     "To": [
+    #         {
+    #         "Email": "$RECIPIENT_EMAIL",
+    #         "Name": "You"
+    #         }
+    #     ],
+    #     "Subject": subject_template_name,
         
-        "HTMLPart": email_template_name
-        }
-    ]
-    }
-    result = mailjet.send.create(data=data)
+    #     "HTMLPart": email_template_name
+    #     }
+    # ]
+    # }
+    # result = mailjet.send.create(data=data)
 
 class Custom_PasswordResetDoneView(PasswordResetDoneView):
     template_name = "password/password_reset_done.html"
