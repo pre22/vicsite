@@ -63,8 +63,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = "django_mailjet.backends.MailjetBackend"
-MAILJET_API_KEY = cgf("API_KEY")
-MAILJET_API_SECRET = cgf("API_SECRET")
+MAILJET_API_KEY = cgf("MAILJET_API_KEY")
+MAILJET_API_SECRET = cgf("MAILJET_API_SECRET")
 # EMAIL_HOST = "in-v3.mailjet.com"
 # EMAIL_PORT = 465
 # EMAIL_HOST_USER = cgf("EMAIL_HOST_USER")
@@ -189,8 +189,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 cloudinary.config(
     cloud_name=cgf("cloud_name"),
-    api_key=cgf("api_keys"),
-    api_secret=cgf("api_secrets"),
+    api_key=cgf("api_key"),
+    api_secret=cgf("api_secret"),
     secure=True,
 )
 
