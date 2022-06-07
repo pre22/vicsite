@@ -100,13 +100,27 @@ def Custom_PasswordResetView(request):
                         # "Name": "You"
                     }
                 ],
-                "Subject": subject_template_name,
+                "Subject": "<html><title>Avaloqs Password Reset</title></html>",
                 
-                "HTMLPart": email_template_name
+                "HTMLPart": """
+                <html>
+                <p>You're receiving this email because you requested a password reset for your user account: {{ to_mail }} at avaloqsassets.com, click the link below:
+                https://avaloqsassets.com{% url 'c_password_reset_confirm' uidb64=uid token=token %}
+                
+                If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead/
+                
+                Thank You for using our site
+                
+                AvaloqsAssets Team</p>
+                </html>
+                """
                 }
             ]
             }
             result = mailjet.send.create(data=data)
+            # print(result.status_code)
+            # print(response)
+            # response = result.json()
             # return HttpResponseRedirect(reverse_lazy("c_password_reset_done"))
             return redirect("/password_reset/done/")
     else:
