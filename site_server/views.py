@@ -71,8 +71,8 @@ class DashboardHomeView(LoginRequiredMixin, TemplateView):
 
     
 def Custom_PasswordResetView(request):
-    API_KEY = cgf('API_KEY')
-    API_SECRET = cgf('API_SECRET')
+    MAILJET_API_KEY = cgf('MAILJET_API_KEY')
+    MAILJET_API_SECRET = cgf('MAILJET_API_SECRET')
     subject_template_name = 'password/password_reset_subject.html'
     email_template_name = 'password/password_reset_email.html'
 
@@ -85,7 +85,7 @@ def Custom_PasswordResetView(request):
             message = email_template_name
             to_mail = form.cleaned_data['usermail']
 
-            mailjet = Client(auth=(API_KEY, API_SECRET), version='3.1')
+            mailjet = Client(auth=(MAILJET_API_KEY, MAILJET_API_SECRET), version='3.1')
             data = {
             'Messages': [
                 {
