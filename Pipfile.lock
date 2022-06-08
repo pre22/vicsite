@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fbc6cdc510c4c57732a7c7b7cde2ac369113ff239e9e61db63fdbe5c81e8a23a"
+            "sha256": "9456e2969a67a86d8e4ef3146ee8991d2073d73fde60615885e39c0bac436c71"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -87,13 +87,6 @@
             "index": "pypi",
             "version": "==2.0.0"
         },
-        "django-mailjet": {
-            "hashes": [
-                "sha256:c5974447b2fe4aeb298a4774887b6850374b3291fe941e7d23ff09c2edee8ef5"
-            ],
-            "index": "pypi",
-            "version": "==0.3.1"
-        },
         "django-richtextfield": {
             "hashes": [
                 "sha256:c4b8f9d19214727f8cc3056658413dc7652627ce9d0d1f25395483a9bf641d65"
@@ -122,6 +115,7 @@
                 "sha256:635d53ac3fd61020f309c24ee977ae3458654ab39f9c36fc4b50c74e5d8ad410",
                 "sha256:e02663fa0369543bcd48c37a146e8143bb12b9f3512af2d5ba6dfbcc99e64a2d"
             ],
+            "index": "pypi",
             "version": "==1.3.4"
         },
         "pillow": {
