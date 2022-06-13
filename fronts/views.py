@@ -1,5 +1,11 @@
+# django core modules import 
 from django.views.generic import TemplateView, CreateView
 from django.urls import reverse_lazy
+
+# 3rd party import 
+import logging
+
+# Django-app imports 
 from accounts.models import Contact
 from transactions.models import Deposit, Package
 from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_are_sub, Top_executive, Top_executive_body, Our_offering, AboutUs, Footer, HowToInvest
@@ -8,6 +14,17 @@ from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_ar
 
 class HomePageView(TemplateView):
     template_name = "front/homes.html"
+
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,6 +47,17 @@ class AboutPage(CreateView):
     fields = "__all__"
     success_url = reverse_lazy("about_us")
     template_name = "front/about.html"
+
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

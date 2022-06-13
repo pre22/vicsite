@@ -1,3 +1,4 @@
+# Django core module imports
 import os
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
@@ -6,6 +7,11 @@ from django.http import request
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views.generic import TemplateView, FormView
 from django.http import request
+
+# 3rd Party Imports
+import logging
+
+# django-app imports
 from accounts.models import Balance, DueDate, AmountInvested, CustomUser, Profilepic
 from transactions.models import Deposit, Package
 from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_are_sub, Top_executive, Top_executive_body, Our_offering, AboutUs, Footer, HowToInvest
@@ -18,11 +24,33 @@ class ChartView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy("login")
     template_name = "charts.html"
 
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
+
     
 
 class DashboardHomeView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy("login")
     template_name = "home/home.html"
+
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
 
 
     def get_context_data(self, **kwargs):
@@ -43,75 +71,57 @@ class Custom_PasswordResetView(PasswordResetView):
     email_template_name = 'password/password_reset_email.html'
     success_url = reverse_lazy("c_password_reset_done")
 
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
 
-
-"""  
-def Custom_PasswordResetView(request):
-    MAILJET_API_KEY = cgf('MAILJET_API_KEY')
-    MAILJET_API_SECRET = cgf('MAILJET_API_SECRET')
-    subject_template_name = 'password/password_reset_subject.html'
-    email_template_name = 'password/password_reset_email.html'
-
-    if request.method == 'POST':
-        form = PasswordForm(request.POST)
-
-        if form.is_valid():
-
-            subject = subject_template_name
-            message = email_template_name
-            to_mail = form.cleaned_data['usermail']
-
-            mailjet = Client(auth=(MAILJET_API_KEY, MAILJET_API_SECRET), version='3.1')
-            data = {
-            'Messages': [
-                {
-                "From": {
-                    "Email": "admin@avaloqsassets.com",
-                    "Name": "Me"
-                },
-                "To": [
-                    {
-
-                        "Email": to_mail,
-                        # "Name": "You"
-                    }
-                ],
-                "Subject": "<html><title>Avaloqs Password Reset</title></html>",
-                
-                "HTMLPart":
-                <html>
-                <p>You're receiving this email because you requested a password reset for your user account: {{ to_mail }} at avaloqsassets.com, click the link below:
-                https://avaloqsassets.com{% url 'c_password_reset_confirm' uidb64=uid token=token %}
-                
-                If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead/
-                
-                Thank You for using our site
-                
-                AvaloqsAssets Team</p>
-                </html>
-                
-                }
-            ]
-            }
-            result = mailjet.send.create(data=data)
-            # print(result.status_code)
-            # print(response)
-            # response = result.json()
-            # return HttpResponseRedirect(reverse_lazy("c_password_reset_done"))
-            return redirect("/password_reset/done/")
-    else:
-        form = PasswordForm()
-        
-    return render(request, "password/forgot_password.html", {'form': form})
-"""
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
 
 class Custom_PasswordResetDoneView(PasswordResetDoneView):
     template_name = "password/password_reset_done.html"
     success_url = reverse_lazy("c_password_reset_confirm")
 
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
+
 class Custom_PasswordResetConfirmView(PasswordResetConfirmView):
     template_name = "password/password_reset_confirm.html"
     success_url = reverse_lazy("c_password_reset_complete")
 
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
+
 class Custom_PasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "password/password_reset_complete.html"
+
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################

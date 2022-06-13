@@ -1,3 +1,4 @@
+# Django core modules imports
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.http import request, HttpResponseRedirect, HttpResponse
 
+# 3rd Party imports
+import logging
+
+# Django-apps imports
 from accounts.models import Balance
 from transactions.models import Deposit, Withdraw
 from investments.models import Investment
@@ -42,6 +47,18 @@ def DepositView(request):
     else:
         form = DepositForm()
         print("Form not valid")
+    
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
+    
     return render(request, "transactions/deposit.html", {
         "form": form,
         "detail": CoinAddress.objects.all()
@@ -55,6 +72,16 @@ class TransactionHistoryView(LoginRequiredMixin, TemplateView):
     # model = Investment
     template_name = "transactions/transactions.html"
 
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -93,6 +120,18 @@ def WithdrawView(request):
             return HttpResponseRedirect(reverse_lazy("withdraw"))
     else:
         form = WithdrawForm()
+    
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
+    
     return render(request, "transactions/withdrawal.html", {
         "form": form,
     })

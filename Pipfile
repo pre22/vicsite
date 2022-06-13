@@ -28,6 +28,7 @@ whitenoise = "==6.1.0"
 psycopg2-binary = "*"
 python-environ = "*"
 mailjet-rest = "*"
+django-db-logger = "*"
 
 [dev-packages]
 

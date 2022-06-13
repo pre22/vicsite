@@ -5,6 +5,8 @@ from django.views.generic import CreateView, ListView
 from investments.models import Investment, Package
 from accounts.models import CustomUser
 
+# 3rd party package import 
+import logging
 
 class InvestView(LoginRequiredMixin, CreateView):
     """
@@ -16,6 +18,17 @@ class InvestView(LoginRequiredMixin, CreateView):
     fields = ["package", "amount",]
     success_url = reverse_lazy("transactions")
     # context_object_name = "form"
+
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
+    try:
+        1/0
+    except Exception as e:
+        db_logger.exception(e)
+    ####################
  
 
     def get_context_data(self, **kwargs):
