@@ -10,7 +10,6 @@ from accounts.models import Balance, DueDate, AmountInvested, CustomUser, Profil
 from transactions.models import Deposit, Package
 from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_are_sub, Top_executive, Top_executive_body, Our_offering, AboutUs, Footer, HowToInvest
 from site_server.forms import PasswordForm
-from mailjet_rest import Client
 from decouple import config as cgf
 
 
@@ -38,38 +37,15 @@ class DashboardHomeView(LoginRequiredMixin, TemplateView):
         return context
     
  
-# class Custom_PasswordResetView(PasswordResetView):
-#     template_name = "password/forgot_password.html"
-#     subject_template_name = 'password/password_reset_subject.html'
-#     email_template_name = 'password/password_reset_email.html'
-#     success_url = reverse_lazy("c_password_reset_done")
+class Custom_PasswordResetView(PasswordResetView):
+    template_name = "password/forgot_password.html"
+    subject_template_name = 'password/password_reset_subject.html'
+    email_template_name = 'password/password_reset_email.html'
+    success_url = reverse_lazy("c_password_reset_done")
 
-#     API_KEY = cgf('API_KEY')
-#     API_SECRET = cgf('API_SECRET')
 
-#     mailjet = Client(auth=(API_KEY, API_SECRET))
-#     data = {
-#     'Messages': [
-#         {
-#         "From": {
-#             "Email": "$SENDER_EMAIL",
-#             "Name": "Me"
-#         },
-#         "To": [
-#             {
-#             "Email": "$RECIPIENT_EMAIL",
-#             "Name": "You"
-#             }
-#         ],
-#         "Subject": subject_template_name,
-        
-#         "HTMLPart": email_template_name
-#         }
-#     ]
-#     }
-#     result = mailjet.send.create(data=data)
 
-    
+"""  
 def Custom_PasswordResetView(request):
     MAILJET_API_KEY = cgf('MAILJET_API_KEY')
     MAILJET_API_SECRET = cgf('MAILJET_API_SECRET')
@@ -102,7 +78,7 @@ def Custom_PasswordResetView(request):
                 ],
                 "Subject": "<html><title>Avaloqs Password Reset</title></html>",
                 
-                "HTMLPart": """
+                "HTMLPart":
                 <html>
                 <p>You're receiving this email because you requested a password reset for your user account: {{ to_mail }} at avaloqsassets.com, click the link below:
                 https://avaloqsassets.com{% url 'c_password_reset_confirm' uidb64=uid token=token %}
@@ -113,7 +89,7 @@ def Custom_PasswordResetView(request):
                 
                 AvaloqsAssets Team</p>
                 </html>
-                """
+                
                 }
             ]
             }
@@ -127,7 +103,7 @@ def Custom_PasswordResetView(request):
         form = PasswordForm()
         
     return render(request, "password/forgot_password.html", {'form': form})
-
+"""
 
 class Custom_PasswordResetDoneView(PasswordResetDoneView):
     template_name = "password/password_reset_done.html"
