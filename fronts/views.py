@@ -1,12 +1,14 @@
 # django core modules import 
 from django.views.generic import TemplateView, CreateView
 from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, HttpResponseRedirect
 
 # 3rd party import 
 import logging
 
 # Django-app imports 
 from accounts.models import Contact
+from fronts.forms import ContactForm
 from transactions.models import Deposit, Package
 from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_are_sub, Top_executive, Top_executive_body, Our_offering, AboutUs, Footer, HowToInvest
 
@@ -15,16 +17,6 @@ from contents.models import Carousel_Home, Carousel_About, Who_we_are, Who_we_ar
 class HomePageView(TemplateView):
     template_name = "front/homes.html"
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,32 +34,40 @@ class HomePageView(TemplateView):
         }
         return context
 
-class AboutPage(CreateView):
-    model = Contact
-    fields = "__all__"
-    success_url = reverse_lazy("about_us")
-    template_name = "front/about.html"
 
+def AboutPage(request):
     # DB Logger 
     db_logger = logging.getLogger('db')
     db_logger.info('info message')
     db_logger.warning('warning message')
 
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
+    if request.method == "POST":
+        print("Here")
+        form = ContactForm(request.POST)
+        # all_fields = ContactForm.declared_fields.keys()
+        # print(all_fields)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        try:
+            if form.is_valid():
+                form.save(request)
+                return HttpResponseRedirect(reverse_lazy("about_us"))
+        except Exception as e:
+            db_logger.exception(e)
+
+    else:
+        form = ContactForm()
+
+
+    try:
         carousel_about = Carousel_About.objects.all()
         context = {
-            "package": Package.objects.all(),
-            "how_to_invest": HowToInvest.objects.all(),
             "aboutus": AboutUs.objects.all(),
-            "our_offering": Our_offering.objects.all(),
             "carousel_about": carousel_about,
-            # "form": Contact.objects.all(),
         }
-        return context
+    except Exception as e:
+        db_logger.exception(e)
+    
+    return render(request, "front/about.html", context)
+
+
+

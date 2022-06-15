@@ -8,9 +8,6 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views.generic import TemplateView, FormView
 from django.http import request
 
-# 3rd Party Imports
-import logging
-
 # django-app imports
 from accounts.models import Balance, DueDate, AmountInvested, CustomUser, Profilepic
 from transactions.models import Deposit, Package
@@ -24,33 +21,10 @@ class ChartView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy("login")
     template_name = "charts.html"
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
-
-    
 
 class DashboardHomeView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy("login")
     template_name = "home/home.html"
-
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
 
     def get_context_data(self, **kwargs):
@@ -71,57 +45,16 @@ class Custom_PasswordResetView(PasswordResetView):
     email_template_name = 'password/password_reset_email.html'
     success_url = reverse_lazy("c_password_reset_done")
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
 class Custom_PasswordResetDoneView(PasswordResetDoneView):
     template_name = "password/password_reset_done.html"
     success_url = reverse_lazy("c_password_reset_confirm")
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
 class Custom_PasswordResetConfirmView(PasswordResetConfirmView):
     template_name = "password/password_reset_confirm.html"
     success_url = reverse_lazy("c_password_reset_complete")
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
 class Custom_PasswordResetCompleteView(PasswordResetCompleteView):
     template_name = "password/password_reset_complete.html"
-
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################

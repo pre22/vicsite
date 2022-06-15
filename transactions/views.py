@@ -36,28 +36,25 @@ from accounts.models import CustomUser
 
 @login_required(login_url="/accounts/login")
 def DepositView(request):
-    if request.method == "POST":
-        form = DepositForm(request.POST)
-        message = "You have successfully placed a Deposit request.  Your account balance will be credited within the next 24 hours."
-
-        if form.is_valid():
-            form.save(request)
-            messages.success(request, message)
-            return HttpResponseRedirect(reverse_lazy("transactions"))
-    else:
-        form = DepositForm()
-        print("Form not valid")
-    
     # DB Logger 
     db_logger = logging.getLogger('db')
     db_logger.info('info message')
     db_logger.warning('warning message')
 
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
+    if request.method == "POST":
+        form = DepositForm(request.POST)
+        message = "You have successfully placed a Deposit request.  Your account balance will be credited within the next 24 hours."
+
+        try:
+            if form.is_valid():
+                form.save(request)
+                messages.success(request, message)
+                return HttpResponseRedirect(reverse_lazy("transactions"))
+        except Exception as e:
+            db_logger.exception(e)
+    else:
+        form = DepositForm()
+        # print("Form not valid")
     
     return render(request, "transactions/deposit.html", {
         "form": form,
@@ -77,20 +74,20 @@ class TransactionHistoryView(LoginRequiredMixin, TemplateView):
     db_logger.info('info message')
     db_logger.warning('warning message')
 
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
+
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context = {
-            "user": self.request.user,
-            "withdraw_h": Withdraw.objects.filter(user=self.request.user),
-            "deposit_h": Deposit.objects.filter(user=self.request.user),
-            "invest_h": Investment.objects.filter(user=self.request.user) 
-        }
+        try:
+            context = {
+                "user": self.request.user,
+                "withdraw_h": Withdraw.objects.filter(user=self.request.user),
+                "deposit_h": Deposit.objects.filter(user=self.request.user),
+                "invest_h": Investment.objects.filter(user=self.request.user) 
+            }
+        except Exception as e:
+            db_logger.exception(e)
         return context
     
 
@@ -111,26 +108,25 @@ class TransactionHistoryView(LoginRequiredMixin, TemplateView):
 
 @login_required(login_url="/accounts/login")
 def WithdrawView(request):
-    if request.method == "POST":
-        form = WithdrawForm(request.POST)
-        message = "You have successfully placed a withdraw request.  Your wallet will be credited within the next 24 hours."
-        if form.is_valid():
-            form.save(request)
-            messages.success(request, message)
-            return HttpResponseRedirect(reverse_lazy("withdraw"))
-    else:
-        form = WithdrawForm()
-    
     # DB Logger 
     db_logger = logging.getLogger('db')
     db_logger.info('info message')
     db_logger.warning('warning message')
 
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
+    if request.method == "POST":
+        form = WithdrawForm(request.POST)
+        message = "You have successfully placed a withdraw request.  Your wallet will be credited within the next 24 hours."
+        
+        try:
+            if form.is_valid():
+                form.save(request)
+                messages.success(request, message)
+                return HttpResponseRedirect(reverse_lazy("withdraw"))
+        except Exception as e:
+            db_logger.exception(e)
+    else:
+        form = WithdrawForm()
+    
     
     return render(request, "transactions/withdrawal.html", {
         "form": form,

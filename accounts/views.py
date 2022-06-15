@@ -18,42 +18,38 @@ from accounts.forms import CustomLoginForm, CustomSignupForm
 
 # Create your views here.
 class CustomLoginView(LoginView):
-    form_class = CustomLoginForm
-    template_name = "registration/login.html"
-    success_url = reverse_lazy("home")
-
     # DB Logger 
     db_logger = logging.getLogger('db')
     db_logger.info('info message')
     db_logger.warning('warning message')
 
     try:
-        1/0
+        form_class = CustomLoginForm
     except Exception as e:
         db_logger.exception(e)
-    ####################
+
+    template_name = "registration/login.html"
+    success_url = reverse_lazy("home")
+
 
 
 def SignupView(request):
+    # DB Logger 
+    db_logger = logging.getLogger('db')
+    db_logger.info('info message')
+    db_logger.warning('warning message')
+
     if request.method == "POST":
         form = CustomSignupForm(request.POST)
 
         if form.is_valid():
-            form.save(request)
-            return HttpResponseRedirect(reverse_lazy("login"))
+            try:
+                form.save(request)
+                return HttpResponseRedirect(reverse_lazy("login"))
+            except Exception as e:
+                db_logger.exception(e)
     else:
         form = CustomSignupForm()
-
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
     return render(request, "registration/register.html", {"form": form})
 
@@ -61,16 +57,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy('login')
     template_name = "accounts/profile.html"
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -93,49 +79,27 @@ class ProfileEdit(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("profile")
     template_name = "accounts/profile_edit.html"
 
+
+class ProfilePicsView(LoginRequiredMixin, UpdateView):
     # DB Logger 
     db_logger = logging.getLogger('db')
     db_logger.info('info message')
     db_logger.warning('warning message')
 
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
-
-class ProfilePicsView(LoginRequiredMixin, UpdateView):
     model = Profilepic
     fields = {"img",}
     template_name = "accounts/profile_edit.html"
-    context_object_name = "pics"
-    success_url = reverse_lazy("profile")
-
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
     try:
-        1/0
+        context_object_name = "pics"
+        success_url = reverse_lazy("profile")
     except Exception as e:
         db_logger.exception(e)
-    ####################
+
 
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/change_password.html"
     success_url = reverse_lazy("profile")
 
-    # DB Logger 
-    db_logger = logging.getLogger('db')
-    db_logger.info('info message')
-    db_logger.warning('warning message')
-
-    try:
-        1/0
-    except Exception as e:
-        db_logger.exception(e)
-    ####################
     
 # def ProfileEdit(request, id):
 #     data = get_object_or_404(CustomUser, id=id)
