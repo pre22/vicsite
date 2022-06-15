@@ -7,13 +7,16 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact 
         fields =["c_email", "msg",]
+        widgets = {
+            "msg": forms.Textarea(attrs={'cols': 30, 'rows': 10, 'class': "block w-full border border-gray-200 rounded-md py-2 px-4 mt-2"}),
+        }
     
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
 
         self.fields["c_email"].widget.attrs.update({"class": "block w-full border border-gray-200 rounded-md py-2 px-4 mt-2", "type": "email", "placeholder": "Enter your email address here"})
 
-        self.fields["msg"].widget.attrs.update({"class": "block w-full border border-gray-200 rounded-md py-2 px-4 mt-2", "type": "text"})
+        # self.fields["msg"].widget.attrs.update({"class": "block w-full border border-gray-200 rounded-md py-2 px-4 mt-2", "type": "textarea"})
 
 
     def save(self, request):

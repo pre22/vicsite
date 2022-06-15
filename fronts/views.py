@@ -42,32 +42,28 @@ def AboutPage(request):
     db_logger.warning('warning message')
 
     if request.method == "POST":
-        print("Here")
         form = ContactForm(request.POST)
         # all_fields = ContactForm.declared_fields.keys()
         # print(all_fields)
 
-        try:
-            if form.is_valid():
-                form.save(request)
-                return HttpResponseRedirect(reverse_lazy("about_us"))
-        except Exception as e:
-            db_logger.exception(e)
+        if form.is_valid():
+            form.save(request)
+            return HttpResponseRedirect(reverse_lazy("homepage"))
+
 
     else:
         form = ContactForm()
+        # print("form invalid")
 
 
-    try:
-        carousel_about = Carousel_About.objects.all()
-        context = {
-            "aboutus": AboutUs.objects.all(),
-            "carousel_about": carousel_about,
-        }
-    except Exception as e:
-        db_logger.exception(e)
+    carousel_about = Carousel_About.objects.all()
     
-    return render(request, "front/about.html", context)
+    
+    return render(request, "front/about.html", {
+        "aboutus": AboutUs.objects.all(),
+        "carousel_about": carousel_about,
+        "form": form,
+    })
 
 
 
